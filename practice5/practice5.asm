@@ -50,49 +50,51 @@ segment code use32 class=code
         jb change_digit
         cmp al, '9'
         ja iesire_repeta
-    ;literally the worst solution that I could have ever thought of 
-    ;I hate myself for doing this
     change_digit:
-        cmp al, 0
-        je add_digit1
-        cmp al, 1
-        je add_digit2
-        cmp al, 2
-        je add_digit3
-        cmp al, 3
-        je add_digit4
-        cmp al, 4
-        je add_digit5
-        cmp al, 5
-        je add_digit6
-        cmp al, 6
-        je add_digit7
-        cmp al, 7
-        je add_digit8
-        cmp al, 8
-        je add_digit9
-        cmp al, 9
-        je add_digit10
-    add_digit1:
-        add al, 40
-    add_digit2:
-        add al, 39
-    add_digit3:
-        add al, 38
-    add_digit4:
-        add al, 37
-    add_digit5:
-        add al, 36
-    add_digit6:
-        add al, 35
-    add_digit7:
-        add al, 34
-    add_digit8:
-        add al, 33
-    add_digit9:
-        add al, 32
-    add_digit10:
-        add al, 31
+        mov al, 'X'
+    ; ;literally the worst solution that I could have ever thought of 
+    ; ;I hate myself for doing this
+    ; change_digit:
+        ; cmp al, 0
+        ; je add_digit1
+        ; cmp al, 1
+        ; je add_digit2
+        ; cmp al, 2
+        ; je add_digit3
+        ; cmp al, 3
+        ; je add_digit4
+        ; cmp al, 4
+        ; je add_digit5
+        ; cmp al, 5
+        ; je add_digit6
+        ; cmp al, 6
+        ; je add_digit7
+        ; cmp al, 7
+        ; je add_digit8
+        ; cmp al, 8
+        ; je add_digit9
+        ; cmp al, 9
+        ; je add_digit10
+    ; add_digit1:
+        ; add al, 40
+    ; add_digit2:
+        ; add al, 39
+    ; add_digit3:
+        ; add al, 38
+    ; add_digit4:
+        ; add al, 37
+    ; add_digit5:
+        ; add al, 36
+    ; add_digit6:
+        ; add al, 35
+    ; add_digit7:
+        ; add al, 34
+    ; add_digit8:
+        ; add al, 33
+    ; add_digit9:
+        ; add al, 32
+    ; add_digit10:
+        ; add al, 31
         
     iesire_repeta:
         stosb 

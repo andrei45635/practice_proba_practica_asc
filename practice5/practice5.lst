@@ -37,84 +37,86 @@
     33 00000013 A3[10000000]                    mov [descriptor], eax 
     34                                          
     35 00000018 83F800                          cmp eax, 0
-    36 0000001B 0F848A000000                    je final 
+    36 0000001B 7450                            je final 
     37                                          
-    38 00000021 B91C000000                      mov ecx, len 
-    39 00000026 BE[14000000]                    mov esi, text 
-    40 0000002B BF[30000000]                    mov edi, text_final
-    41 00000030 BB01000000                      mov ebx, 1
+    38 0000001D B91C000000                      mov ecx, len 
+    39 00000022 BE[14000000]                    mov esi, text 
+    40 00000027 BF[30000000]                    mov edi, text_final
+    41 0000002C BB01000000                      mov ebx, 1
     42                                      repeta:
-    43 00000035 AC                              lodsb ;incarcam in AL elementul din text 
-    44 00000036 FEC3                            inc bl ;incrementam ca sa ii aflam pozitia
-    45 00000038 F6C301                          test bl, 1b
-    46 0000003B 7548                            jnz iesire_repeta
-    47 0000003D 3C30                            cmp al, '0'
-    48 0000003F 7244                            jb iesire_repeta
-    49 00000041 3C39                            cmp al, '9'
-    50 00000043 7204                            jb change_digit
-    51 00000045 3C39                            cmp al, '9'
-    52 00000047 773C                            ja iesire_repeta
-    53                                      ;literally the worst solution that I could have ever thought of 
-    54                                      ;I hate myself for doing this
-    55                                      change_digit:
-    56 00000049 3C00                            cmp al, 0
-    57 0000004B 7424                            je add_digit1
-    58 0000004D 3C01                            cmp al, 1
-    59 0000004F 7422                            je add_digit2
-    60 00000051 3C02                            cmp al, 2
-    61 00000053 7420                            je add_digit3
-    62 00000055 3C03                            cmp al, 3
-    63 00000057 741E                            je add_digit4
-    64 00000059 3C04                            cmp al, 4
-    65 0000005B 741C                            je add_digit5
-    66 0000005D 3C05                            cmp al, 5
-    67 0000005F 741A                            je add_digit6
-    68 00000061 3C06                            cmp al, 6
-    69 00000063 7418                            je add_digit7
-    70 00000065 3C07                            cmp al, 7
-    71 00000067 7416                            je add_digit8
-    72 00000069 3C08                            cmp al, 8
-    73 0000006B 7414                            je add_digit9
-    74 0000006D 3C09                            cmp al, 9
-    75 0000006F 7412                            je add_digit10
-    76                                      add_digit1:
-    77 00000071 0428                            add al, 40
-    78                                      add_digit2:
-    79 00000073 0427                            add al, 39
-    80                                      add_digit3:
-    81 00000075 0426                            add al, 38
-    82                                      add_digit4:
-    83 00000077 0425                            add al, 37
-    84                                      add_digit5:
-    85 00000079 0424                            add al, 36
-    86                                      add_digit6:
-    87 0000007B 0423                            add al, 35
-    88                                      add_digit7:
-    89 0000007D 0422                            add al, 34
-    90                                      add_digit8:
-    91 0000007F 0421                            add al, 33
-    92                                      add_digit9:
-    93 00000081 0420                            add al, 32
-    94                                      add_digit10:
-    95 00000083 041F                            add al, 31
-    96                                          
-    97                                      iesire_repeta:
-    98 00000085 AA                              stosb 
-    99 00000086 E2AD                            loop repeta 
-   100                                          
-   101                                          ;print the resulting text in the file
-   102                                          ;eax = fprintf(descriptor, text_final)
-   103 00000088 68[30000000]                    push dword text_final
-   104 0000008D FF35[10000000]                  push dword [descriptor]
-   105 00000093 FF15[00000000]                  call [fprintf]
-   106 00000099 83C408                          add esp, 4*2 
-   107                                      
-   108                                          ;closing file
-   109                                          ;eax = fclose(descriptor)
-   110 0000009C FF35[10000000]                  push dword [descriptor]
-   111 000000A2 FF15[00000000]                  call [fclose]
-   112 000000A8 83C404                          add esp, 4
-   113                                      
-   114                                      final:
-   115 000000AB 6A00                            push    dword 0      
-   116 000000AD FF15[00000000]                  call    [exit]       
+    43 00000031 AC                              lodsb ;incarcam in AL elementul din text 
+    44 00000032 FEC3                            inc bl ;incrementam ca sa ii aflam pozitia
+    45 00000034 F6C301                          test bl, 1b
+    46 00000037 750E                            jnz iesire_repeta
+    47 00000039 3C30                            cmp al, '0'
+    48 0000003B 720A                            jb iesire_repeta
+    49 0000003D 3C39                            cmp al, '9'
+    50 0000003F 7204                            jb change_digit
+    51 00000041 3C39                            cmp al, '9'
+    52 00000043 7702                            ja iesire_repeta
+    53                                      change_digit:
+    54 00000045 B058                            mov al, 'X'
+    55                                      ; ;literally the worst solution that I could have ever thought of 
+    56                                      ; ;I hate myself for doing this
+    57                                      ; change_digit:
+    58                                          ; cmp al, 0
+    59                                          ; je add_digit1
+    60                                          ; cmp al, 1
+    61                                          ; je add_digit2
+    62                                          ; cmp al, 2
+    63                                          ; je add_digit3
+    64                                          ; cmp al, 3
+    65                                          ; je add_digit4
+    66                                          ; cmp al, 4
+    67                                          ; je add_digit5
+    68                                          ; cmp al, 5
+    69                                          ; je add_digit6
+    70                                          ; cmp al, 6
+    71                                          ; je add_digit7
+    72                                          ; cmp al, 7
+    73                                          ; je add_digit8
+    74                                          ; cmp al, 8
+    75                                          ; je add_digit9
+    76                                          ; cmp al, 9
+    77                                          ; je add_digit10
+    78                                      ; add_digit1:
+    79                                          ; add al, 40
+    80                                      ; add_digit2:
+    81                                          ; add al, 39
+    82                                      ; add_digit3:
+    83                                          ; add al, 38
+    84                                      ; add_digit4:
+    85                                          ; add al, 37
+    86                                      ; add_digit5:
+    87                                          ; add al, 36
+    88                                      ; add_digit6:
+    89                                          ; add al, 35
+    90                                      ; add_digit7:
+    91                                          ; add al, 34
+    92                                      ; add_digit8:
+    93                                          ; add al, 33
+    94                                      ; add_digit9:
+    95                                          ; add al, 32
+    96                                      ; add_digit10:
+    97                                          ; add al, 31
+    98                                          
+    99                                      iesire_repeta:
+   100 00000047 AA                              stosb 
+   101 00000048 E2E7                            loop repeta 
+   102                                          
+   103                                          ;print the resulting text in the file
+   104                                          ;eax = fprintf(descriptor, text_final)
+   105 0000004A 68[30000000]                    push dword text_final
+   106 0000004F FF35[10000000]                  push dword [descriptor]
+   107 00000055 FF15[00000000]                  call [fprintf]
+   108 0000005B 83C408                          add esp, 4*2 
+   109                                      
+   110                                          ;closing file
+   111                                          ;eax = fclose(descriptor)
+   112 0000005E FF35[10000000]                  push dword [descriptor]
+   113 00000064 FF15[00000000]                  call [fclose]
+   114 0000006A 83C404                          add esp, 4
+   115                                      
+   116                                      final:
+   117 0000006D 6A00                            push    dword 0      
+   118 0000006F FF15[00000000]                  call    [exit]       
